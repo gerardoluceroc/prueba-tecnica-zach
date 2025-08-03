@@ -17,6 +17,12 @@ async function bootstrap() {
   SwaggerModule.setup('api', app, document); // 'api' es la ruta donde estará disponible Swagger (ej: http://localhost:8080/api)
   // --- FIN DE CONFIGURACIÓN DE SWAGGER ---
 
+  app.enableCors({
+    origin: '*', // Permite solicitudes de cualquier origen
+    methods: 'GET,HEAD,PUT,PATCH,POST,DELETE', // Métodos HTTP permitidos
+    credentials: true, // Permite el envío de cookies y cabeceras de autorización
+  });
+
   await app.listen(process.env.PORT ?? 8080);
   console.log(`Application is running on: ${await app.getUrl()}`);
 }

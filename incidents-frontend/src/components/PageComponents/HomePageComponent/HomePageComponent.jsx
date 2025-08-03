@@ -1,5 +1,11 @@
 import { useState, useEffect } from 'react';
 import useIncidents from '../../../hooks/useIncidents';
+import DatagridResponsive from '../../DatagridResponsive/DatagridResponsive';
+import ButtonTypeOne from '../../ButtonTypeOne/ButtonTypeOne';
+import { Box } from '@mui/material';
+import "./HomePageComponent.css"
+import dayjs from "dayjs";
+import 'dayjs/locale/es'; 
 
 const HomePageComponent = () => {
     // Invoca el hook useIncidents para acceder a sus estados y funciones
@@ -19,35 +25,46 @@ const HomePageComponent = () => {
         fetchIncidents();
     }, []);
 
-    // Puedes añadir un useEffect adicional para reaccionar a cambios en 'incidents' del hook
-    // por si la actualización interna de 'useIncidents' ocurre un poco después de 'getAllIncidents'
+    // Por si la actualización interna de 'useIncidents' ocurre un poco después de 'getAllIncidents'
     useEffect(() => {
         if (incidents && !loading && !error) {
         setRowsOriginales(incidents);
         }
-    }, [incidents, loading, error]); // Dependencias para reaccionar a cambios en el estado 'incidents' del hook
+    }, [incidents, loading, error]);
+
+
+    function setFechaAFormatoLegible(fechaString) {
+        dayjs.locale('es'); 
+
+        // Parsea la fecha string y formatea
+        const fechaFormateada = dayjs(fechaString).format('DD [de] MMMM [de] YYYY');
+
+        return fechaFormateada;
+    }
+
+    // Información que irá en la tabla
+    const columns = ["Identificador", "Equipo", "Descripcion", "Fecha", "Status"];
+    const data = rowsOriginales?.map((row) => {
+        return[
+            `${row.id}`,
+            `${row.teamId}`,
+            `${row.description}`,
+            `${setFechaAFormatoLegible(row.date)}`,
+            `${row.status}`,
+        ]
+    })
 
     return (
-        <div>
-        <h2>HomePageComponent</h2>
-        {loading && <p>Cargando incidentes...</p>}
-        {error && <p style={{ color: 'red' }}>Error al cargar incidentes: {JSON.stringify(error)}</p>}
-
-        {/* Aquí puedes mostrar los datos de rowsOriginales */}
-        {!loading && rowsOriginales.length > 0 && (
-            <div>
-            <h3>Incidentes Originales Cargados:</h3>
-            <ul>
-                {rowsOriginales.map(incident => (
-                <li key={incident.id}>
-                    ID: {incident.id}, Descripción: {incident.description}, Estado: {incident.status}
-                </li>
-                ))}
-            </ul>
-            </div>
-        )}
-        {!loading && !error && rowsOriginales.length === 0 && <p>No hay incidentes para mostrar o aún no se han cargado.</p>}
-        </div>
+        <Box id="ContainerReporteIncidentePageComponent">
+            <Box id="BotonCrearNuevoReporteIncidente">
+                <ButtonTypeOne
+                    defaultText="Nuevo reporte de incidente"
+                    // handleClick={handleOpenModalCrearReporteIncidencias}
+                    handleClick={()=>{}}
+                />
+            </Box>
+            <DatagridResponsive title="" columns={columns} data={data} selectableRows="none" downloadCsvButton={false} /> 
+        </Box>
     );
     };
 

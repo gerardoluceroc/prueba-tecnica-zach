@@ -1,0 +1,13 @@
+#ContainerReporteIncidentePageComponent{
+    background-color:#213d4f;
+    height: 100%;
+    padding: 36px;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    overflow-x: hidden;
+}
+
+#BotonCrearNuevoReporteIncidente{
+    width: 25%;
+}
