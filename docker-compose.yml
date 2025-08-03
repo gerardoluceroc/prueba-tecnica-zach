@@ -1,0 +1,24 @@
+services:
+  incidents_backend:
+    build:
+      context: ./incidents-backend
+      dockerfile: Dockerfile
+    ports:
+      - "8080:8080"
+    
+    # Define variables de entorno para el contenedor
+    environment:
+      # La aplicación NestJS leerá esta variable 'PORT'
+      # y se ejecutará en el puerto especificado (8080 en este caso)
+      PORT: 8080 
+    
+    # Volúmenes para persistencia de datos (recomendado para SQLite)
+    # Esto montará una carpeta 'data' en el host que persistirá la base de datos
+    volumes:
+      - incidents_data:/app/data # Monta el volumen persistente en el directorio /app/data
+
+    restart: always
+
+volumes:
+  incidents_data:
+    driver: local

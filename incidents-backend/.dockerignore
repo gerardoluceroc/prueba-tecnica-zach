@@ -1,0 +1,4 @@
+node_modules
+npm-debug.log
+.DS_Store
+dist # Ya se copió dist desde el stage de build, no se necesita la local.
