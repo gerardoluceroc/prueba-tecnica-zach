@@ -10,6 +10,7 @@ import TextFieldUno from "../../TextFieldUno/TextFieldUno";
 import TextFieldDate from "../../TextFieldDate/TextFieldDate";
 import { useConfirmDialog } from "../../../hooks/useConfirmDialog";
 import useIncidents from "../../../hooks/useIncidents";
+import { ValidationRegistrarIncidente } from "./ValidationRegistrarIncidente";
 
 const ModalNuevoRegistroIncidente = ({ open, onClose, setRows }) => {
 
@@ -26,7 +27,7 @@ const ModalNuevoRegistroIncidente = ({ open, onClose, setRows }) => {
             descripcion: '',
             estado: 'abierto'
         },
-        // validationSchema: ValidationAgregarAListaNegra,
+        validationSchema: ValidationRegistrarIncidente,
         onSubmit: async (values) => {
             const confirmed = await confirm({
                 title: "Registrar nuevo incidente",
