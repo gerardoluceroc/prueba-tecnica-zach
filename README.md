@@ -20,10 +20,7 @@ Se recomienda seguir la documentación oficial de Docker para la instalación. A
     sudo curl -fsSL [https://download.docker.com/linux/ubuntu/gpg](https://download.docker.com/linux/ubuntu/gpg) -o /etc/apt/keyrings/docker.asc
     sudo chmod a+r /etc/apt/keyrings/docker.asc
 
-    echo \
-      "deb [arch=$(dpkg --print-architecture) signed-by=/etc/apt/keyrings/docker.asc] [https://download.docker.com/linux/ubuntu](https://download.docker.com/linux/ubuntu) \
-      $(. /etc/os-release && echo "${UBUNTU_CODENAME:-$VERSION_CODENAME}") stable" | \
-      sudo tee /etc/apt/sources.list.d/docker.list > /dev/null
+    echo       "deb [arch=$(dpkg --print-architecture) signed-by=/etc/apt/keyrings/docker.asc] [https://download.docker.com/linux/ubuntu](https://download.docker.com/linux/ubuntu)       $(. /etc/os-release && echo "${UBUNTU_CODENAME:-$VERSION_CODENAME}") stable" |       sudo tee /etc/apt/sources.list.d/docker.list > /dev/null
     sudo apt-get update
     ```
 
@@ -41,6 +38,36 @@ El proyecto está configurado para ser ejecutado con Docker Compose, lo que inic
 ### 1. Clonar el Repositorio
 
 ```bash
-git clone <URL_DEL_REPOSITORIO>
-cd <NOMBRE_DE_TU_CARPETA_CLONADA>
-´´´
+git clone https://github.com/gerardoluceroc/prueba-tecnica-zach.git
+cd prueba-tecnica-zach/
+```
+
+### 2. Ejecutar con Docker Compose
+
+Para iniciar todos los servicios del proyecto:
+
+* **Para ejecutar en primer plano (ver logs en la terminal):**
+    ```bash
+    docker compose up --build
+    ```
+
+* **Para ejecutar en segundo plano (modo 'detached'):**
+    ```bash
+    docker compose up --build -d
+    ```
+
+---
+
+## Acceso a la Aplicación y la API
+
+Una vez que los contenedores estén en funcionamiento, puedes acceder a los servicios en las siguientes direcciones:
+
+* **Aplicación Frontend (React/Vite):**
+    ```
+    http://localhost:5173
+    ```
+
+* **Documentación de la API Backend (Swagger):**
+    ```
+    http://localhost:8080/api
+    ```
