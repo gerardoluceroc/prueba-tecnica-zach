@@ -6,15 +6,21 @@ import { Box } from '@mui/material';
 import "./HomePageComponent.css"
 import dayjs from "dayjs";
 import 'dayjs/locale/es'; 
+import ModalNuevoRegistroIncidente from '../../Modals/ModalNuevoRegistroIncidente/ModalNuevoRegistroIncidente';
 
 const HomePageComponent = () => {
+
+    //Estados para manejar el modal para registrar un nuevo incidente
+    const [openModalNuevoIncidente, setOpenModalNuevoIncidente] = useState(false);
+    const handleopenModalNuevoIncidente = () => setOpenModalNuevoIncidente(true);  
+    const handleCloseModalNuevoIncidente = () => setOpenModalNuevoIncidente(false);
+
+
     // Invoca el hook useIncidents para acceder a sus estados y funciones
     const { incidents, loading, error, getAllIncidents } = useIncidents();
 
     // Crea el estado rowsOriginales
     const [rowsOriginales, setRowsOriginales] = useState([]);
-    useEffect(() => {console.log("📌 rowsOriginales, => ",rowsOriginales)}, [rowsOriginales,]);
-
 
     // Usa useEffect para invocar getAllIncidents una vez al montar el componente
     useEffect(() => {
@@ -59,11 +65,15 @@ const HomePageComponent = () => {
             <Box id="BotonCrearNuevoReporteIncidente">
                 <ButtonTypeOne
                     defaultText="Nuevo reporte de incidente"
-                    // handleClick={handleOpenModalCrearReporteIncidencias}
-                    handleClick={()=>{}}
+                    handleClick={handleopenModalNuevoIncidente}
                 />
             </Box>
             <DatagridResponsive title="" columns={columns} data={data} selectableRows="none" downloadCsvButton={false} /> 
+            <ModalNuevoRegistroIncidente
+                open={openModalNuevoIncidente}
+                onClose={handleCloseModalNuevoIncidente}
+                setRows={setRowsOriginales}
+            />
         </Box>
     );
     };

@@ -69,15 +69,15 @@ const useIncidents = () => {
     }
   };
 
-  const createIncident = async (newIncidentData) => { // ✅ Renombrada la función y el parámetro
+  const createIncident = async (newIncidentData) => {
     setLoading(true);
-    setError(null); // Limpiar errores anteriores
-    setResponse(null); // Limpiar respuesta anterior
-    setResponseStatus(null); // Limpiar status anterior
+    setError(null);
+    setResponse(null);
+    setResponseStatus(null);
 
     try {
       // La petición POST se hace directamente a la URL base de incidentes
-      const response = await axios.post(path_createIncident, newIncidentData); // ✅ Usa path_createIncident
+      const response = await axios.post(path_createIncident, newIncidentData);
 
       const status = response?.status || null;
       const responseData = response?.data || null; // La data del incidente creado

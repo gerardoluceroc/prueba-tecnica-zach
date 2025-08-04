@@ -19,6 +19,19 @@ services:
 
     restart: always
 
+  incidents_frontend:
+    build:
+      context: ./incidents-frontend
+      dockerfile: Dockerfile
+    ports:
+      - "5173:5173" # Mapea el puerto del contenedor al puerto de la máquina host
+    environment:
+      NODE_ENV: development
+    volumes:
+      - ./incidents-frontend:/app # Monta el código fuente para hot-reloading
+      - /app/node_modules # Evita que las node_modules del host sobrescriban las del contenedor
+    restart: always
+
 volumes:
   incidents_data:
     driver: local
