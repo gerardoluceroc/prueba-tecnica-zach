@@ -1,4 +1,4 @@
-# README del Proyecto Full Stack (Zach Services - Prueba Técnica)
+# Zach Services - Prueba Técnica
 
 Este proyecto es una aplicación Full Stack desarrollada como prueba técnica para Zach Services. La aplicación se ejecuta completamente en contenedores Docker para simplificar la configuración y el despliegue.
 
